@@ -129,7 +129,9 @@ function ExtractTextPlugin(options) {
 	}
 	this.filename = options.filename;
 	this.id = options.id != null ? options.id : ++nextId;
-	this.options = {};
+	this.options = {
+		maintainImportOrder: false
+	};
 	mergeOptions(this.options, options);
 	delete this.options.filename;
 	delete this.options.id;
@@ -320,13 +322,15 @@ ExtractTextPlugin.prototype.apply = function(compiler) {
 		compilation.plugin("additional-assets", function(callback) {
 			extractedChunks.forEach(function(extractedChunk) {
 				if(extractedChunk.modules.length) {
-					extractedChunk.modules.sort(function(a, b) {
-						if(!options.ignoreOrder && isInvalidOrder(a, b)) {
-							compilation.errors.push(new OrderUndefinedError(a.getOriginalModule()));
-							compilation.errors.push(new OrderUndefinedError(b.getOriginalModule()));
-						}
-						return getOrder(a, b);
-					});
+					if (!options.maintainImportOrder) {
+            extractedChunk.modules.sort(function(a, b) {
+              if(!options.ignoreOrder && isInvalidOrder(a, b)) {
+                compilation.errors.push(new OrderUndefinedError(a.getOriginalModule()));
+                compilation.errors.push(new OrderUndefinedError(b.getOriginalModule()));
+              }
+              return getOrder(a, b);
+            });
+					}
 					var chunk = extractedChunk.originalChunk;
 					var source = this.renderExtractedChunk(extractedChunk);
 

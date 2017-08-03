@@ -73,6 +73,7 @@ new ExtractTextPlugin(options: filename | object)
 |**`allChunks`**|`{Boolean}`|Extract from all additional chunks too (by default it extracts only from the initial chunk(s))<br />When using `CommonsChunkPlugin` and there are extracted chunks (from `ExtractTextPlugin.extract`) in the commons chunk, `allChunks` **must** be set to `true`|
 |**`disable`**|`{Boolean}`|Disables the plugin|
 |**`ignoreOrder`**|`{Boolean}`|Disables order check (useful for CSS Modules!), `false` by default|
+|**`maintainImportOrder`**|`{Boolean}`| Maintain order of import statements in output file, `false` by default|
 
 * `[name]` name of the chunk
 * `[id]` number of the chunk

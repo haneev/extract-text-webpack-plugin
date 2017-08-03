@@ -26,6 +26,10 @@
       "description": "Ignore dependency order (useful for CSS Modules)",
       "type": "boolean"
     },
+    "maintainImportOrder": {
+      "description": "Maintain import order in output file",
+      "type": "boolean"
+    },
     "loader": {
       "description": "The loader that ExtractTextPlugin will attempt to load through.",
       "modes": {
